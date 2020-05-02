@@ -45,7 +45,7 @@ class User(AbstractUser):
                               max_length=255, unique=True)
 
     username = models.CharField(max_length=30)
-    gender = models.SmallIntegerField*(choices=GENDER_CHOICES)
+    gender = models.SmallIntegerField(choices=GENDER_CHOICES)
 
     objects = UserManager()
     USERNAME_FIELD = 'email'
