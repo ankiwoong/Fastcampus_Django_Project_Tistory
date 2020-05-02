@@ -1,6 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
+GENDER_CHOICES = (
+    (0, 'Male'),
+    (1, 'Female'),
+    (2, 'Not to disclose')
+)
+
 
 class UserManager(BaseUserManager):
     def _create_user(self, email, username, password, **extra_fields):
@@ -11,7 +17,8 @@ class UserManager(BaseUserManager):
             raise ValueError('The given email must be set')
         email = self.normalize_email(email)
         username = self.model.normalize_username(username)
-        user = self.model(email=email, username=username, **extra_fields)
+        user = self.model(email=email, username=username,
+                          gender=gender, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -21,16 +28,16 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', False)
         return self._create_user(email, username, password, **extra_fields)
 
-    def create_superuser(self, email, username, password, **extra_fields):
+    def create_superuser(self, email, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
         if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True')
+            raise ValueError('Superuser must have is_superuser=True.')
 
-        return self._create_user(email, username, password, **extra_fields)
+        return self._create_user(email, 'blogs/like_section.html',  password, **extra_fields)
 
 
 class User(AbstractUser):
@@ -38,6 +45,7 @@ class User(AbstractUser):
                               max_length=255, unique=True)
 
     username = models.CharField(max_length=30)
+    gender = models.SmallIntegerField(choices=GENDER_CHOICES)
 
     objects = UserManager()
     USERNAME_FIELD = 'email'
