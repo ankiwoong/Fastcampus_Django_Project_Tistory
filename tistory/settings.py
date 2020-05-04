@@ -44,6 +44,7 @@ INSTALLED_APPS += [
     'helpers',
     'users',
     'django_social_share',
+    'taggit',
 ]
 
 MIDDLEWARE = [
