@@ -5,13 +5,13 @@
 
 {% block content %}
 <div style="padding-left:50px; padding-top:50px;">
-  <h1>Signup</h1>
-  <hr>
-  <form action="" method="POST">
-    {{ user_form.as_p }} form.as_table form.as_ul
-    {% csrf_token %}
-    <input class="btn btn-primary" type="submit" value="submit">
-  </form>
-
+    <h1>Signup</h1>
+    <hr>
+    <form action="" method="POST">
+      {{ user_form.as_p }} form.as_table form.as_ul
+      {% csrf_token %}
+      <input class="btn btn-primary" type="submit" value="submit">
+    </form>
+  
 </div>
 {% endblock %}
